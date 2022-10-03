@@ -21,7 +21,17 @@ import numpy as np
 """Se agrega cross entropy como una clase aparte y luego se agrega como un argumento más en la clase de nerwork"""
 
 class CrossEntropyCost(object):
+@staticmethod
+    def fn(a, y):
+      
+        return np.sum(np.nan_to_num(-y*np.log(a)-(1-y)*np.log(1-a)))
 
+    @staticmethod
+    def delta(z, a, y):
+     
+        return (a-y)
+
+class Network(object):
     def __init__(self, sizes, cost=CrossEntropyCost):
         """The list ``sizes`` contains the number of neurons in the
         respective layers of the network.  For example, if the list
@@ -33,6 +43,7 @@ class CrossEntropyCost(object):
         layer is assumed to be an input layer, and by convention we
         won't set any biases for those neurons, since biases are only
         ever used in computing the outputs from later layers."""
+        
         self.num_layers = len(sizes)
         self.sizes = sizes
         self.biases = [np.random.randn(y, 1) for y in sizes[1:]]
