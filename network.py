@@ -93,14 +93,17 @@ class CrossEntropyCost(object):
             
          self.velocidad = [friccion*v-(eta/len(mini_batch))*nw
                         for v, nw in zip(self.velocidad, nabla_w)]
+        self.velocidad = [friccion*v-(eta/len(mini_batch))*nb
+                        for v, nb in zip(self.velocidad, nabla_b)]
         self.weights = [w-(eta/len(mini_batch))*nw
                         for w, nw in zip(self.weights, nabla_w)]
         """
         En esta mparte se modifico el algoritmo de SGD por 
         SGD con momento, usando la definición
         """
-        self.biases = [friccion*v-(eta/len(mini_batch))*nb
-                       for v, nb in zip(self.biases, nabla_b)]
+        self.biases = [b-(eta/len(mini_batch))*nb
+                       for b, nb in zip(self.biases, nabla_b)]
+     
 
     def backprop(self, x, y):
         """Return a tuple ``(nabla_b, nabla_w)`` representing the
